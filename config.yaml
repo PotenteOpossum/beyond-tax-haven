@@ -1,0 +1,106 @@
+data:
+  base_path: ../Data
+  distance_path: ../Data/
+  expenditure_file: expenditure_reduced.csv
+  statent_file: normalized_statent2_EE.csv
+  swiss_file: data_swiss.csv # User needs to provide this
+  population_file: data_reduced_residents.csv # User needs to provide this
+  od_matrix_file: car_table_gmaps_renamed.csv
+  tax_file: TAX_without_child.csv # User needs to provide this
+
+experiment:
+  scaling_method: 'quantile'
+  # predictor: 'Number of employees'
+  predictor: 'Number of workplaces'
+  # predictor: 'growth of employees'
+  # predictor: "growth of workplaces"
+  swiss: False
+  as_temporal: False
+  use_net_features: True
+  cross_features: False
+  gaussian_normalization: True
+  train_years: 10
+  val_ratio: 0
+  test_years: 1
+  prediction_window: 1
+  n_runs: 10
+  n_bins: 3
+  lags: 1
+  models:
+    # - "RecurrentGCN"
+    - "GNNGAT"
+    # - "RandomForestRegressor"
+    # - "GraphTransformer"
+    # - "XGBRegressor"
+    # - "RandomGuesser"
+    # - "SimpleGCN"
+  # quartile - remove longest 25%
+  # knn - build a K-Nearest Neighbors (KNN)
+  # none - keep everything
+  filter_method:
+    # - "knn"
+    - "None"
+    # - "quartile"
+  knn_k: 5
+  quartile: 25
+  normalization: False
+  # the features listed here are the features that are removed 
+  feature_combinations:
+    # "Statent":
+    #   - "expenditure"
+    #   - "population"
+    #   - "taxes"
+    # "Taxes":
+    #   - "statent"
+    #   - "expenditure"
+    #   - "population"
+    # "Population":
+    #   - "statent"
+    #   - "expenditure"
+    #   - "taxes"
+    # "Statent_Expenditure":
+    #   - "population"
+    #   - "taxes"
+    # "Expenditure":
+    #   - "statent"
+    #   - "taxes"
+    #   - "population"
+    "All": []
+  weight_options:
+    # "no_weights": False
+    "real_weights": True
+  output_path: "../results/FINAL_RESULTS_5/quantile/"
+  save_predictions: False
+  pred_output_filename: 'predictions.json'
+
+gcn_params:
+  GNNGAT:
+    hidden_channels: 64
+    out_channels: 1
+    epochs: 300
+    learning_rate: 0.001
+    adaptive_learning_rate: True
+  SimpleGCN:
+    hidden_channels: 64
+    out_channels: 1
+    epochs: 300
+    learning_rate: 0.01
+    adaptive_learning_rate: True
+
+random_forest_params:
+  n_estimators: 100
+  # max_depth: 10
+  # min_samples_leaf: 42
+  # random_state: 42
+  n_jobs: -1
+  # max_samples: 0.8
+
+xgb_params:
+  # n_estimators: 500
+  # learning_rate: 0.05
+  # max_depth: 8
+  # subsample: 0.8
+  # colsample_bytree: 0.8
+  # reg_lambda: 1.0
+  # random_state: 42
+  n_jobs: -1
