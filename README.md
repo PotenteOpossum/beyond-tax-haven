@@ -42,6 +42,7 @@ If you use this code or data, please cite:
 > Beyond the tax haven: a graph analysis of business attraction in Swiss municipalities
 > Capozzi, A., & Dailisan, D. (2026)
 > EPJ Data Science, 15(1), 15.
+
 BibTeX:
 > @article{Capozzi2026,
 >   author = {Capozzi, Arthur and Dailisan, Damian},
