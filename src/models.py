@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 from torch_geometric.nn import Linear, GCNConv, GATv2Conv, TransformerConv, LayerNorm
-from torch_geometric.nn.recurrent import GConvGRU
+from torch_geometric_temporal.nn.recurrent import GConvGRU
 
 class RecurrentGCN(torch.nn.Module):
     def __init__(self, in_channels: int, hidden_channels: int, out_channels: int) -> None:

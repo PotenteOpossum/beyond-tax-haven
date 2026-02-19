@@ -1,6 +1,6 @@
 data:
-  base_path: ../Data
-  distance_path: ../Data/
+  base_path: Data
+  distance_path: Data/
   expenditure_file: expenditure_reduced.csv
   statent_file: normalized_statent2_EE.csv
   swiss_file: data_swiss.csv # User needs to provide this
@@ -29,11 +29,11 @@ experiment:
   models:
     # - "RecurrentGCN"
     - "GNNGAT"
-    # - "RandomForestRegressor"
+    - "RandomForestRegressor"
     # - "GraphTransformer"
-    # - "XGBRegressor"
+    - "XGBRegressor"
     # - "RandomGuesser"
-    # - "SimpleGCN"
+    - "SimpleGCN"
   # quartile - remove longest 25%
   # knn - build a K-Nearest Neighbors (KNN)
   # none - keep everything
@@ -46,30 +46,30 @@ experiment:
   normalization: False
   # the features listed here are the features that are removed 
   feature_combinations:
-    # "Statent":
-    #   - "expenditure"
-    #   - "population"
-    #   - "taxes"
-    # "Taxes":
-    #   - "statent"
-    #   - "expenditure"
-    #   - "population"
-    # "Population":
-    #   - "statent"
-    #   - "expenditure"
-    #   - "taxes"
-    # "Statent_Expenditure":
-    #   - "population"
-    #   - "taxes"
-    # "Expenditure":
-    #   - "statent"
-    #   - "taxes"
-    #   - "population"
+    "Statent":
+      - "expenditure"
+      - "population"
+      - "taxes"
+    "Taxes":
+      - "statent"
+      - "expenditure"
+      - "population"
+    "Population":
+      - "statent"
+      - "expenditure"
+      - "taxes"
+    "Statent_Expenditure":
+      - "population"
+      - "taxes"
+    "Expenditure":
+      - "statent"
+      - "taxes"
+      - "population"
     "All": []
   weight_options:
     # "no_weights": False
     "real_weights": True
-  output_path: "../results/FINAL_RESULTS_5/quantile/"
+  output_path: "results/"
   save_predictions: False
   pred_output_filename: 'predictions.json'
 

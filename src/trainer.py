@@ -206,7 +206,8 @@ class Experiment:
                     optimizer.zero_grad()
                     seq.to(device)
                     # For non-recurrent/static dataset, x is features
-                    x, y = (seq.x, seq.y) if hasattr(seq, 'x') else (seq.features, seq.targets)
+                    x = seq.x if getattr(seq, 'x', None) is not None else seq.features
+                    y = seq.y if getattr(seq, 'y', None) is not None else seq.targets
                     edge_w = seq.edge_weight if seq.edge_weight is not None else edge_weight
                     
                     if info['model_name'] == 'GraphTransformer':
@@ -254,8 +255,9 @@ class Experiment:
                     y_pred, hidden_state = model(seq.x, seq.edge_index, seq.edge_weight, hidden_state)
                     y_true = seq.y
                 else:
-                    x = seq.x if hasattr(seq, 'x') else seq.features
-                    y_true = seq.y if hasattr(seq, 'y') else seq.targets
+                    x = seq.x if getattr(seq, 'x', None) is not None else seq.features
+                    y_true = seq.y if getattr(seq, 'y', None) is not None else seq.targets
+                    # y_true = seq.y if hasattr(seq, 'y') else seq.targets
                     edge_w = seq.edge_weight
                     if model.__name__ == 'GraphTransformer':
                         y_pred = model(x, seq.edge_index, edge_attr=edge_w)
